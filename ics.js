@@ -36,9 +36,20 @@ const generateCriticalMassBerlinIcs = () => {
 		})
 	}
 
-	const {error, value} = createEvents(events)
+	const {error, value: rawIcs} = createEvents(events)
 	if (error) throw error
-	return value
+
+	// add feed metadata
+	const marker = 'METHOD:PUBLISH'
+	if (!rawIcs.includes(marker)) {
+		throw new Error('couldnt add metadata')
+	}
+	const i = rawIcs.indexOf(marker) + marker.length
+	return [
+		rawIcs.slice(0, i),
+		'\r\nX-WR-CALNAME:Critical Mass Berlin',
+		rawIcs.slice(i)
+	].join('')
 }
 
 module.exports = generateCriticalMassBerlinIcs
