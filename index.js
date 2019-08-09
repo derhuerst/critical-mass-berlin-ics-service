@@ -1,26 +1,17 @@
 'use strict'
 
 const {createServer} = require('http')
-const generateIcs = require('./ics')
-
-const respond = (res, statusCode, statusMessage, headers, body) => {
-	res.writeHead(statusCode, statusMessage, headers)
-	res.end(body)
-}
+const feed = require('./api/feed')
 
 const server = createServer((req, res) => {
 	const path = new URL(req.url, 'http://example.org').pathname.slice(1)
 	if (path !== 'critical-mass-berlin.ics') {
-		return respond(res, 404, 'not found', {}, 'not found')
+		res.writeHead(404, 'not found')
+		res.end('not found')
+		return
 	}
 
-	try {
-		const ics = generateIcs()
-		respond(res, 200, 'ok', {'content-type': 'text/calendar'}, ics)
-	} catch (err) {
-		console.error(err)
-		respond(res, 500, 'error', {}, err + '')
-	}
+	feed(req, res)
 })
 
 const port = parseInt(process.env.PORT || 3000)
