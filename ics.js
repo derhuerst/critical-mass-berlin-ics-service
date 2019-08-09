@@ -9,7 +9,7 @@ const REPO_URL = 'https://github.com/derhuerst/critical-mass-berlin-ics-service'
 const zone = new IANAZone('Europe/Berlin')
 const berlinTime = ms => DateTime.fromMillis(ms, {zone})
 
-const generateCriticalMassBerlinIcs = () => {
+const generateCriticalMassBerlinIcs = (feedUrl = null) => {
 	const dates = nextCriticalMassDates()
 
 	const events = []
@@ -48,6 +48,7 @@ const generateCriticalMassBerlinIcs = () => {
 	return [
 		rawIcs.slice(0, i),
 		'\r\nX-WR-CALNAME:Critical Mass Berlin',
+		feedUrl ? '\r\nX-ORIGINAL-URL:' + feedUrl : '',
 		rawIcs.slice(i)
 	].join('')
 }
