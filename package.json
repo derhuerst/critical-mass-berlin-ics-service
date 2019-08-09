@@ -1,0 +1,25 @@
+{
+	"private": true,
+	"name": "critical-mass-berlin-ics-service",
+	"description": "Serve an .ics file for Critical Mass Berlin events via HTTP.",
+	"version": "1.0.0",
+	"main": "index.js",
+	"keywords": [
+		"critical",
+		"mass",
+		"berlin",
+		"ics",
+		"ical",
+		"calendar"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/critical-mass-berlin-ics-service",
+	"repository": "derhuerst/critical-mass-berlin-ics-service",
+	"bugs": "https://github.com/derhuerst/critical-mass-berlin-ics-service/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=10"
+	},
+	"dependencies": {
+	}
+}
