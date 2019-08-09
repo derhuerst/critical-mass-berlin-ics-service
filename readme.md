@@ -1,6 +1,6 @@
 # critical-mass-berlin-ics-service
 
-**Serve an [.ics file](https://en.wikipedia.org/wiki/ICalendar) for Critical Mass Berlin events via HTTP**, so that people can subscribe with their calendar.
+**Serve an [.ics file](https://en.wikipedia.org/wiki/ICalendar) for Critical Mass Berlin events via HTTP**, so that people can subscribe with their calendar. Uses [`next-critical-mass-berlin-dates`](https://github.com/derhuerst/next-critical-mass-berlin-dates).
 
 [![npm version](https://img.shields.io/npm/v/critical-mass-berlin-ics-service.svg)](https://www.npmjs.com/package/critical-mass-berlin-ics-service)
 [![build status](https://api.travis-ci.org/derhuerst/critical-mass-berlin-ics-service.svg?branch=master)](https://travis-ci.org/derhuerst/critical-mass-berlin-ics-service)
