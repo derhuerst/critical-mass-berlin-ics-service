@@ -26,6 +26,7 @@
 		"next-critical-mass-berlin-dates": "^1.0.1"
 	},
 	"scripts": {
-		"start": "node index.js"
+		"start": "node index.js",
+		"build": "echo nothing to build"
 	}
 }
