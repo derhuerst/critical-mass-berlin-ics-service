@@ -2,29 +2,18 @@
 
 const {DateTime, IANAZone} = require('luxon')
 const nextCriticalMassDates = require('next-critical-mass-berlin-dates')
-const {createEvents} = require('ics')
-const appleStructuredLocation = require('./lib/apple-structured-location')
+const generateIcs = require('ics-service/generate-ics')
 
+const TITLE = 'Critical Mass Berlin'
 const REPO_URL = 'https://github.com/derhuerst/critical-mass-berlin-ics-service'
 
 const ADDRESS = 'Mariannenplatz\\nMariannenplatz, Berlin, BE, Germany'
 const LATITUDE = 52.502222
 const LONGITUDE = 13.424387
+const RADIUS = 60
 
 const zone = new IANAZone('Europe/Berlin')
 const berlinTime = ms => DateTime.fromMillis(ms, {zone})
-
-const insertAfter = (lines, marker, newLines) => {
-	if (!lines.includes(marker)) {
-		throw new Error(`couldnt find the "${marker}" marker`)
-	}
-	const i = lines.indexOf(marker) + marker.length
-	return [
-		lines.slice(0, i),
-		...newLines.filter(line => !!line).map(line => '\r\n' + line),
-		lines.slice(i)
-	].join('')
-}
 
 const generateCriticalMassBerlinIcs = (feedUrl = null) => {
 	const dates = nextCriticalMassDates()
@@ -38,9 +27,9 @@ const generateCriticalMassBerlinIcs = (feedUrl = null) => {
 			uid: (t / 1000 | 0) + '',
 			title: 'Critical Mass',
 			description: 'Critical Mass Berlin',
-			location: ADDRESS.replace(/,/g, '\\,'),
+			location: ADDRESS,
 			url: 'https://criticalmass.berlin/',
-			geo: {lat: LATITUDE, lon: LONGITUDE},
+			geo: {lat: LATITUDE, lon: LONGITUDE, radius: RADIUS},
 			categories: ['Critical Mass'],
 			start: [dt.year, dt.month, dt.day, dt.hour, dt.minute],
 			startOutputType: 'local',
@@ -53,18 +42,7 @@ const generateCriticalMassBerlinIcs = (feedUrl = null) => {
 		})
 	}
 
-	const {error, value: rawIcs} = createEvents(events)
-	if (error) throw error
-
-	// add feed metadata
-	// todo: this is really brittle, make it more robust
-	const ics = insertAfter(rawIcs, 'METHOD:PUBLISH', [
-		'X-WR-CALNAME:Critical Mass Berlin',
-		feedUrl ? 'X-ORIGINAL-URL:' + feedUrl : null
-	])
-	return insertAfter(ics, 'STATUS:CONFIRMED', [
-		appleStructuredLocation(ADDRESS, LATITUDE, LONGITUDE, 60)
-	])
+	return generateIcs(TITLE, events, feedUrl)
 }
 
 module.exports = generateCriticalMassBerlinIcs

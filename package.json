@@ -21,7 +21,7 @@
 		"node": ">=10"
 	},
 	"dependencies": {
-		"ics": "^2.16.0",
+		"ics-service": "^1.0.0",
 		"luxon": "^1.17.2",
 		"next-critical-mass-berlin-dates": "^1.0.1"
 	},
