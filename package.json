@@ -27,8 +27,12 @@
 		"next-critical-mass-berlin-dates": "^1.0.1"
 	},
 	"scripts": {
+		"lint": "eslint .",
 		"start": "node index.js",
 		"test": "node test/index.js",
-		"prepublishOnly": "npm test"
+		"prepublishOnly": "npm run lint && npm test"
+	},
+	"devDependencies": {
+		"eslint": "^8.20.0"
 	}
 }
