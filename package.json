@@ -2,7 +2,7 @@
 	"private": true,
 	"name": "critical-mass-berlin-ics-service",
 	"description": "Serve an .ics file for Critical Mass Berlin events via HTTP.",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"main": "index.js",
 	"keywords": [
 		"critical",
@@ -18,12 +18,12 @@
 	"bugs": "https://github.com/derhuerst/critical-mass-berlin-ics-service/issues",
 	"license": "ISC",
 	"engines": {
-		"node": ">=10"
+		"node": ">=16"
 	},
 	"dependencies": {
 		"debug": "^4.3.4",
 		"ics-service": "^1.0.0",
-		"luxon": "^1.17.2",
+		"luxon": "^3.0.1",
 		"next-critical-mass-berlin-dates": "^1.0.1"
 	},
 	"scripts": {
