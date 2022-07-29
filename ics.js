@@ -3,6 +3,7 @@
 const {DateTime, IANAZone} = require('luxon')
 const nextCriticalMassDates = require('next-critical-mass-berlin-dates')
 const generateIcs = require('ics-service/generate-ics')
+const debug = require('debug')('critical-mass-berlin-ics-service:ics')
 
 const TITLE = 'Critical Mass Berlin'
 const REPO_URL = 'https://github.com/derhuerst/critical-mass-berlin-ics-service'
@@ -23,7 +24,7 @@ const generateCriticalMassBerlinIcs = (feedUrl = null) => {
 		const t = dates.next().value
 		const dt = berlinTime(t)
 
-		events.push({
+		const event = {
 			uid: (t / 1000 | 0) + '',
 			title: 'Critical Mass',
 			description: 'Critical Mass Berlin',
@@ -39,7 +40,9 @@ const generateCriticalMassBerlinIcs = (feedUrl = null) => {
 			sequence: 1,
 			productId: REPO_URL
 			// todo: alarms?
-		})
+		}
+		debug('adding event', event)
+		events.push(event)
 	}
 
 	return generateIcs(TITLE, events, feedUrl)
